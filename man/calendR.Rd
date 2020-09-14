@@ -7,20 +7,22 @@
 calendR(
   year = format(Sys.Date(), "\%Y"),
   month = NULL,
+  start_date = NULL,
+  end_date = NULL,
   start = c("S", "M"),
-  weeknames,
   orientation = c("portrait", "landscape"),
   title,
   title.size = 20,
   title.col = "gray30",
   subtitle = "",
+  subtitle.size = 10,
   subtitle.col = "gray30",
   text = "",
   text.pos = NULL,
   text.size = 4,
   text.col = "gray30",
   special.days = NULL,
-  special.col = rgb(0, 0, 1, alpha = 0.25),
+  special.col = "gray90",
   gradient = FALSE,
   low.col = "white",
   col = "gray30",
@@ -28,14 +30,26 @@ calendR(
   lty = 1,
   font.family = "sans",
   font.style = "plain",
-  weekdays.col = "gray30",
-  month.col = "gray30",
-  days.col = "gray30",
   day.size = 3,
+  days.col = "gray30",
+  weeknames,
+  weeknames.col = "gray30",
+  weeknames.size = 4.5,
+  months.size = 10,
+  months.col = "gray30",
+  months.pos = 0.5,
+  mbg.col = "white",
   legend.pos = "none",
   legend.title = "",
+  bg.col = "white",
+  bg.img = "",
+  margin = 1,
+  lunar = FALSE,
+  lunar.col = "gray60",
+  lunar.size = 7,
   pdf = FALSE,
-  doc_name = ""
+  doc_name = "",
+  papersize = "A4"
 )
 }
 \arguments{
@@ -43,9 +57,11 @@ calendR(
 
 \item{month}{Month of the year or \code{NULL} (default) for the yearly calendar.}
 
-\item{start}{\code{"S"} (default) for starting the week on Sunday or \code{"M"} for starting the week on Monday.}
+\item{start_date}{Custom start date of the calendar. If \code{start_date != NULL}, \code{year} and \code{month} arguments won't be taken into account.}
 
-\item{weeknames}{Character vector with the names of the days of the week. By default they will be in the system locale.}
+\item{end_date}{Custom end date of the calendar.}
+
+\item{start}{\code{"S"} (default) for starting the week on Sunday or \code{"M"} for starting the week on Monday.}
 
 \item{orientation}{The calendar orientation: \code{"portrait"} or \code{"landscape"} (default). Also accepts \code{"p"} and \code{"l"}.}
 
@@ -56,6 +72,8 @@ calendR(
 \item{title.col}{Color of the main title.}
 
 \item{subtitle}{Subtitle of the calendar in italics (optional).}
+
+\item{subtitle.size}{Font size of the subtitle.}
 
 \item{subtitle.col}{Color of the subtitle.}
 
@@ -73,33 +91,57 @@ calendR(
 
 \item{gradient}{Boolean. If \code{special.days} is a numeric vector of the length of the displayed days, \code{gradient = TRUE} creates a gradient of the \code{special.col} on the calendar.}
 
-\item{low.col}{If \code{gradient = TRUE}, is the lower color of the gradient. Defaults to \code{"white"}.}
+\item{low.col}{If \code{gradient = TRUE}, is the lower color of the gradient. If \code{gradient = FALSE} is the background color of the days. Defaults to \code{"white"}.}
 
 \item{col}{Color of the lines of the calendar.}
 
 \item{lwd}{Line width of the calendar.}
 
-\item{lty}{Line type of the calendar.}
+\item{lty}{Line type of the calendar. If \code{lty = 0} no lines are drawn.}
 
 \item{font.family}{Font family of all the texts.}
 
 \item{font.style}{Style of all the texts and numbers except the subtitle. Possible options are \code{"plain"} (default), \code{"bold"}, \code{"italic"} and \code{"bold.italic"}.}
 
-\item{weekdays.col}{Color of the names of the days.}
-
-\item{month.col}{If \code{month = NULL}, is the color of the month names.}
+\item{day.size}{Font size of the number of the days.}
 
 \item{days.col}{Color of the number of the days.}
 
-\item{day.size}{Font size of the number of the days.}
+\item{weeknames}{Character vector with the names of the days of the week starting on Monday. By default they will be in the system locale.}
+
+\item{weeknames.col}{Color of the names of the days.}
+
+\item{weeknames.size}{Size of the names of the days.}
+
+\item{months.size}{Font size of the names of the months.}
+
+\item{months.col}{If \code{month = NULL}, is the color of the month names.}
+
+\item{months.pos}{Horizontal align of the month names. Defaults to 0.5 (center).}
+
+\item{mbg.col}{Background color of the month names. Defaults to "white".}
 
 \item{legend.pos}{If \code{gradient = TRUE}, is the position of the legend. It can be set to \code{"none"} (default), \code{"top"}, \code{"bottom"}, \code{"left"} and \code{"right"}.}
 
 \item{legend.title}{If \code{legend.pos != "none"} and  \code{gradient = TRUE}, is the title of the legend.}
 
-\item{pdf}{Boolean. If TRUE, saves the calendar in the working directory in A4 format.}
+\item{bg.col}{Background color of the calendar. Defaults to "white".}
+
+\item{bg.img}{Character string containing the URL or the local directory of a image to be used as background.}
+
+\item{margin}{Numeric. Allows controlling the margin of the calendar.}
+
+\item{lunar}{Boolean. If \code{TRUE}, draws the lunar phases. Only available for monthly calendars.}
+
+\item{lunar.col}{If \code{lunar = TRUE}, is the color of the hide part of the moons.}
+
+\item{lunar.size}{If \code{lunar = TRUE}, is the size of the representation of the moons.}
+
+\item{pdf}{Boolean. If \code{TRUE}, saves the calendar in the working directory in A4 format.}
 
 \item{doc_name}{If \code{pdf = TRUE}, is the name of the generated file (without the file extension). If not specified, creates files of the format: \code{Calendar_year.pdf} for yearly calendars and \code{Calendar_month_year.pdf} for monthly calendars.}
+
+\item{papersize}{PDF paper size. Possible options are \code{"A6"}, \code{"A5"}, \code{"A4"} (default), \code{"A3"}, \code{"A2"}, \code{"A1"} and \code{"A0"}. Depending on the size you will need to fine-tune some arguments, like the font sizes.}
 }
 \description{
 Create ready to print monthly and yearly calendars. The function allows personalizing colors (even setting a gradient color scale for a full month or year), texts and fonts. In addition, for monthly calendars you can also add text on the days.
