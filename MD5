@@ -1,8 +1,8 @@
-6981e1e4b8daecd37bd3412b20045de8 *DESCRIPTION
+f3026cb32dc53a720d7b3fc398691a79 *DESCRIPTION
 6dad9e18acd6ba1332a908b301457c8a *NAMESPACE
-327abf52b78b3e1f025c72806fee1fb0 *R/calendR-package.R
-424b329a7ec2c1bd5fe8c57f69e1977f *R/calendR.R
+3008be14b0ff98a1047919b3367be8a9 *R/calendR-package.R
+fc23f7e1b379cc599336db07b8c70a42 *R/calendR.R
 539a4b65a412248b4bd6e43ae168d928 *R/globals.R
 0865a282b76512f815e44dd7930d4676 *R/zzz.R
-ef9ece2e64d828cd23b6fb0489ede5af *man/calendR-package.Rd
-871bb096a4f1d7e886ac5a6278b9e1a5 *man/calendR.Rd
+8417477c82f48bb6b1d9bc7d4d7df183 *man/calendR-package.Rd
+bfe1025412f133cf7c5befb318670f9b *man/calendR.Rd
